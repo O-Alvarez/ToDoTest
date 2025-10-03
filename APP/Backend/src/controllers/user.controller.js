@@ -81,7 +81,7 @@ export const changePass = async (req, res) => {
         //busca el usuario para poder comparar contraseñas
         const [old_user] = await execQuery(querys.user.getById, [id_user])
         if (old_user.length == 0){
-            return res.status(400).json({ message: 'Error al recuperar el usuario' })
+            return res.status(500).json({ message: 'Error al recuperar el usuario' })
         }
         const validPass = await bcrypt.compare(old_password, old_user.password_hash)
         if (!validPass){

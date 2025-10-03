@@ -8,7 +8,7 @@ const querys = {
         "delete": "delete from users where id_user = ?"
     },
     "projects":{
-        "create": "insert into projects(id_user, title, description, status ,expiration_date ) values (? , ? , ? , ?, ?)",
+        "create": "insert into projects(id_user, title, description, status, ispublic ,expiration_date ) values (?, ? , ? , ? , ?, ?)",
         "getLastCreated": "select * from projects where id_user = ? order by created_at desc limit 1",
         "getLastUpdate": "select * from projects where id_user = ? order by update_at desc limit 1",
         "getAllDefeated": "select * from projects where id_user = ? and expiration_date < NOW() order by created_at asc",
@@ -20,10 +20,10 @@ const querys = {
     "categories":{
        "create":"insert into categories(id_project, description, color) values (? , ? , ?)",
        "getLastCategory": "select * from categories where id_project = ? order by created_at desc limit 1",
-       "getByID": "",
-       "getAllByProject": "",
-       "update": "",
-       "delete": ""
+       "getByID": "SELECT c.id_category, c.id_project, p.id_user, p.ispublic, c.description, c.color FROM categories c inner join projects p on c.id_project = p.id_project  where (c.id_category = ? )",
+       "getAllByProject": "SELECT 	c.id_category, c.id_project, p.id_user, p.ispublic, c.description, c.color	FROM categories c inner join projects p on c.id_project = p.id_project  where (p.id_project = ? )",
+       "update": "update categories set description = ? , color = ? where id_category = ?",
+       "delete": "delete from categories where id_category = ?"
 
     },
     "tasks":{

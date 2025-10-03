@@ -5,7 +5,7 @@ import querys from '../querys/querys.js'
 
 export const createProject = async (req, res) => {
   const id_user = req.user.id_user
-  const { title, description, status, expiration_time } = req.body
+  const { title, description, status, ispublic, expiration_time } = req.body
 
   if (!id_user) {
     return res.status(500).json({ message: "hubo un error al recuperar el usuario" })
@@ -15,8 +15,9 @@ export const createProject = async (req, res) => {
   }
 
   try {
+    
     //Crea el proyecto
-    await execQuery(querys.projects.create, [id_user, title, description, status, expiration_time])
+    await execQuery(querys.projects.create, [id_user, title, description, status, ispublic, convertTimeStamp(expiration_time)])
     //obtiene el id del ultimo proyecto creado por el usuario
     const [lastProject] = await execQuery(querys.projects.getLastCreated, [id_user])
 
@@ -175,7 +176,7 @@ export const deleteProject = async (req, res) => {
     return res.status(500).json({ message: "hubo un error al recuperar el usuario" })
   }
   if (!id_project) {
-    return res.status(500).json({ message: "Error al obtener el id del proyecto" })
+    return res.status(400).json({ message: "Error al obtener el id del proyecto" })
   }
   try{
     const validId = parseInt(id_project, 10)
