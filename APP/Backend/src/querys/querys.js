@@ -23,19 +23,20 @@ const querys = {
        "getByID": "SELECT c.id_category, c.id_project, p.id_user, p.ispublic, c.description, c.color FROM categories c inner join projects p on c.id_project = p.id_project  where (c.id_category = ? )",
        "getAllByProject": "SELECT 	c.id_category, c.id_project, p.id_user, p.ispublic, c.description, c.color	FROM categories c inner join projects p on c.id_project = p.id_project  where (p.id_project = ? )",
        "update": "update categories set description = ? , color = ? where id_category = ?",
-       "delete": "delete from categories where id_category = ?"
+       "delte": "delete from categories where id_category = ?"
 
     },
     "tasks":{
-        "create": "insert into tasks(id_project, id_category, title, description, priority, expiration_date) values (? , ? , ? , ? , ? , ?) ",
-        "getById": "",
-        "getAllByProject": "",
-        "update": "",
-        "delete": ""
+        "create": "INSERT INTO tasks(id_project, id_category, title, description, priority, expiration_date) VALUES (? , ? , ? , ? , ? , ?) ",
+        "getById": "select t.id_task, c.id_category, p.id_project, p.id_user, p.ispublic, t.title, t.description, t.priority, t.expiration_date, t.created_at, t.update_at, c.description as category, p.title as project  from tasks t inner join categories c on t.id_category = c.id_category inner join projects p on t.id_project = p.id_project where t.id_task = ?",
+        "getAllByCategory": "select t.id_task, c.id_category, p.id_project, p.id_user , p.ispublic, t.title, t.description, t.priority, t.expiration_date, t.created_at, t.update_at, c.description as category, p.title as project  from tasks t inner join categories c on t.id_category = c.id_category inner join projects p on t.id_project = p.id_project where c.id_category = ?",
+        "getAllByProject": "select t.id_task, c.id_category, p.id_project, p.id_user, p.ispublic, t.title, t.description, t.priority, t.expiration_date, t.created_at, t.update_at, c.description as category, p.title as project  from tasks t inner join categories c on t.id_category = c.id_category inner join projects p on t.id_project = p.id_project where p.id_project = ?",
+        "delete": "delete from tasks where id_task = ?",
+        "update": "update from tasks set title = ?, description = ?, priority = ?, expiration_date = ? where id_task = ?"
     },
     "sessions":{
         "create": "insert into sessions(id_user, token, user_agent, ip_address, expiration_date) values (? , ? , ? , ? , ?)",
-        "getByToken": "select id_user, token, expiration_date, status from sessions WHERE token = ? AND status = true AND expiration_date > NOW()",
+        "getByToken": "SELECT s.id_user,  s.token,  s.expiration_date,  s.status,  u.first_name, u.last_name, u.mail FROM sessions s INNER JOIN users u ON s.id_user = u.id_user WHERE s.token = ? AND s.status = true AND s.expiration_date > NOW()",
         "getByUser":"select id_user, token, expiration_date, status from sessions where id_user = ? and status = true and expiration_date > NOW() ",
         "closeAllSessionsByUser":"update sessions SET status = false WHERE id_user = ? AND status = true",
         "closeSessionByToken": "UPDATE sessions SET status = false WHERE token = ?",

@@ -1,8 +1,17 @@
-import React from 'react';
-import AppRouter from './routes/AppRouter'; // importa tu router
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { verifyToken } from './features/auth/authThunks'
+import AppRouter from './routes/AppRoute'
 
 function App() {
-  return <AppRouter />;
+  
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(verifyToken())
+  }, [dispatch])
+
+
+  return <AppRouter />
 }
 
-export default App;
+export default App

@@ -63,16 +63,21 @@ export const authUser = async (req, res) => {
         const expiration = new Date(Date.now() + parseExpiration())
         const userAgent = req.headers['user-agent'] || ''
         const ip = req.ip || req.connection.remoteAddress;
-        
-        await execQuery(querys.sessions.create, [user.id_user, token, userAgent, ip, expiration] )
-        const session = await execQuery(querys.sessions.getByToken, [token]) 
+
+        await execQuery(querys.sessions.create, [user.id_user, token, userAgent, ip, expiration])
+        const session = await execQuery(querys.sessions.getByToken, [token])
         if (session.length == 0) {
             return res.status(401).json({ message: 'Error al generar token' })
         }
 
         res.json({
             message: 'Login exitoso',
-            token,
+            user: {
+                mail: user.mail,
+                first_name: user.first_name,
+                last_name: user.last_name
+            },
+            token: token
         })
 
     }
@@ -125,4 +130,56 @@ export const registerUser = async (req, res) => {
     }
 
 
+}
+
+export const verify = async (req, res) => {
+    const authHeader = req.headers['authorization']
+
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Token no proporcionado' })
+    }
+
+    const token = authHeader.split(' ')[1]
+
+    if (!token) {
+        return res.status(401).json({ message: 'Token inválido' })
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const [session] = await execQuery(querys.sessions.getByToken, [token])
+
+        if (session.length === 0) {
+            return res.status(401).json({ message: 'Sesión inválida o expirada' })
+        }
+
+        //valida que el token corresponde al usuario de la sesion activa
+        if (decoded.id_user != session.id_user) {
+            return res.status(401).json({ message: 'Token invalido' })
+        }
+        res.json({
+            message: 'token valido',
+            user: {
+                mail: session.mail,
+                first_name: session.first_name,
+                last_name: session.last_name
+            }
+        })
+
+    } catch (err) {
+        console.error('Error en verify:', err.message)
+
+        if (err.name === 'TokenExpiredError') {
+            try {
+                await execQuery(querys.sessions.closeSessionByToken, [token])
+
+            } catch (dbErr) {
+                console.error('Error actualizando sesión expirada:', dbErr.message)
+            }
+
+            return res.status(401).json({ message: 'Sesión expirada. Vuelve a iniciar sesión.' })
+        }
+
+        return res.status(403).json({ message: 'Token inválido' })
+    }
 }

@@ -1,0 +1,44 @@
+.register-page {
+  background: linear-gradient(to bottom right, #E0C3FC, #8EC5FC);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 100%;
+}
+
+.logo {
+  max-height: 60px;
+}
+
+.brand-text {
+  font-weight: 600;
+  color: #5c5c5c;
+}
+
+.btn-custom {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-custom:hover {
+  background-color: var(--color-secondary);
+  transform: scale(1.03);
+}
+
+.login-link {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}

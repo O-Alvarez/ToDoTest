@@ -1,6 +1,7 @@
 import { response } from "express"
 import { execQuery } from "../config/db.js"
 import querys from '../querys/querys.js'
+import convertTimeStamp from "../utils/convertTimeStamp.js"
 
 
 export const createProject = async (req, res) => {
@@ -202,12 +203,4 @@ export const deleteProject = async (req, res) => {
     console.error(e)
     return res.status(500).json({ message: "Error interno en el servidor" })
   }
-}
-
-
-const convertTimeStamp = (IsoDate) => {
-  return new Date(IsoDate)
-    .toISOString()
-    .slice(0, 19)
-    .replace('T', ' ');
 }

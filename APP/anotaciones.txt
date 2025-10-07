@@ -1,0 +1,8 @@
+Elemento UI	Color sugerido	Código
+Fondo general	Crema claro	#FFEED8
+Texto principal	Marrón oscuro	#AA8F66 o #333
+Botones primarios	Verde menta	#61C9A8
+Botones secundarios	Mostaza/Naranja	#ED9B40
+Alertas o peligro	Rojo vino	#BA3B46
+Elementos sutiles	Gris claro	#ccc
+

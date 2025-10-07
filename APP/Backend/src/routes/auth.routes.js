@@ -1,6 +1,6 @@
 //en este archivo se definen todas las rutas de los controladores, en este caso de autenticacion
 import { Router } from "express";
-import {authUser, registerUser} from '../controllers/auth.controller.js'
+import {authUser, registerUser, verify} from '../controllers/auth.controller.js'
 
 const router = Router()
 /**
@@ -89,5 +89,59 @@ router.post('/login', authUser)
  *         description: Campos faltantes o inválidos
  */
 router.post('/register', registerUser)
+
+
+/**
+ * @swagger
+ * /auth/verify:
+ *   get:
+ *     summary: Verifica la validez del token JWT
+ *     description: Verifica si el token del usuario aún es válido y retorna los datos del usuario autenticado.
+ *     tags:
+ *       - autenticacion
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Token válido y usuario autenticado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Token válido'
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id_user:
+ *                       type: integer
+ *                       example: 1
+ *                     first_name:
+ *                       type: string
+ *                       example: Juan
+ *                     last_name:
+ *                       type: string
+ *                       example: Pérez
+ *                     mail:
+ *                       type: string
+ *                       format: email
+ *                       example: juan@example.com
+ *       401:
+ *         description: Token inválido o sesión expirada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Sesión expirada. Vuelve a iniciar sesión.'
+ *       403:
+ *         description: Token inválido o no autorizado
+ */
+
+router.get('/verify', verify)
 
 export default router

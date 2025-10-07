@@ -1,0 +1,96 @@
+/* ----------------------------------
+   Sidebar.css – Estilos del Sidebar
+---------------------------------- */
+
+/* Asegura que el botón hamburguesa esté por encima del sidebar */
+.z-index-high {
+  z-index: 1050;
+}
+
+/* Sidebar general */
+.sidebar {
+  background-color: var(--color-background);
+  height: 100vh;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo del botón de navegación en mobile */
+.sidebar-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1050;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Enlaces del sidebar */
+.sidebar-link {
+  color: var(--color-text);
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-primary);
+  color: white;
+  text-decoration: none;
+}
+
+/* Iconos con espacio a la derecha */
+.sidebar-link .me-2 {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+/* Logo */
+.sidebar img {
+  max-height: 60px;
+  object-fit: contain;
+}
+
+/* Título del sidebar (nombre de la app) */
+.sidebar h5 {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* Botón de logout */
+.btn-outline-danger {
+  transition: all 0.2s ease;
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.sidebar {
+  background-color: var(--color-background);
+  height: 100vh;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  padding: 1rem;
+}
+
+.sidebar.sidebar-closed {
+  width: 0 !important;
+  padding: 0 !important;
+  border-right: none !important;
+  overflow: hidden;
+}
+

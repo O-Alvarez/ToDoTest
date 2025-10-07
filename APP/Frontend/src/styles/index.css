@@ -1,0 +1,83 @@
+/* 🎨 Variables globales */
+:root {
+  --color-primary: #61C9A8;      /* Verde menta */
+  --color-secondary: #ED9B40;    /* Naranja suave */
+  --color-background: #fffaf3;   /* Fondo crema claro */
+  --color-danger: #BA3B46;       /* Rojo vino */
+  --color-text: #2E2C28;         /* Marrón oscuro para mejor contraste */
+  --color-muted: #8c8378;        /* Marrón grisáceo */
+}
+
+/* 🌐 Estilos generales */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+/* Botones personalizados */
+.btn-custom {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-custom:hover {
+  background-color: var(--color-secondary);
+  transform: scale(1.03);
+}
+
+/* Formularios */
+input, textarea, select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(97, 201, 168, 0.2);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+
+/* Alertas */
+.alert-danger {
+  background-color: #f8d7da;
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+}
+
+.alert-success {
+  background-color: #d1f2eb;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+/* Tipografía secundaria */
+.text-muted {
+  color: var(--color-muted);
+}
